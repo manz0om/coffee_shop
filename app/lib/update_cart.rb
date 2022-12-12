@@ -3,6 +3,7 @@ class UpdateCart
 
   def initialize(params)
     @selected_items = params[:data]
+    @selected_items = @selected_items.map{|i| [i[:item_id],i]}.to_h
     @total_price = 0.0
   end
 
@@ -20,7 +21,7 @@ class UpdateCart
         item_quantity: val[:item_quantity]
         item_tax: val
       }
-      price = calculate_price(val, offers, item_list)
+      price = calculate_price(val, offers)
       row[:price] = price
       total += price
       result.push(price)
@@ -38,16 +39,16 @@ class UpdateCart
   end
 
   def calculate_price(item, offers)
-    min_price = item.price
+    min_price = (item.price + (price * item.tax/100.0)) * selected[item.id][:item_quantity]
     item.offers.each do |offer|
       price = item.price - (item.price * offer.first_item_discount/100.0)
-      price += (price * item.tax/100.0)
+      price = (price + (price * item.tax/100.0)) * selected[item.id][:item_quantity]
       min_price = [min_price, price].min
     end
 
     item.combo_offers.each do |offer|
       price = item.price - (item.price * offer.second_item_discount/100.0)
-      price += (price * item.tax/100.0)
+      price = (price + (price * item.tax/100.0)) * selected[item.id][:item_quantity]
       min_price = [min_price, price].min
     end
     return min_price
