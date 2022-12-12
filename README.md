@@ -1,8 +1,8 @@
 # README
 
-API's
+# API's
 
-  Menu
+  ## Menu
     get '/menu'
       response : status 200,
       payload
@@ -30,7 +30,7 @@ API's
         ]
       }
 
-  Offers
+  ## Offers
     get '/offers'
       response: status 200,
       payload
@@ -125,7 +125,7 @@ API's
       }
       response : status 204
 
-  Orders   
+  ## Orders   
     post '/order/create'
       request:
       payload
@@ -200,13 +200,55 @@ API's
       }
       response: status 204
   
-  Cart
+  ## Cart
     post '/cart/update'
-
-  Payment
+      request:
+      payload
+      {
+        data: [
+          {
+            item_category_id: ,
+            item_id: ,
+            item_quantity:
+          },
+          {
+            item_category_id: ,
+            item_id: ,
+            item_quantity:
+          }
+          ...
+        ]
+      }
+      response: status 200
+      payload
+      {
+        data:[
+          {
+            item_category_id:
+            item_id: ,
+            item_quantity: ,
+            item_price: ,
+            item_discount: ,
+            item_tax:
+            item_total_price: 
+          },
+          ...
+        ],
+        total_amount: 
+      }
+      
+  ## Payment
     post '/payment/:order_id/update'
+      request:
+      payload
+      {
+        payment_id:
+        reference_id:
+        status: 
+        order_id:
+      }
 
-  Item Categories
+  ## Item Categories
     get '/item_categories'
       response: status 200
       payload
@@ -280,7 +322,7 @@ API's
       }
       response: status 204
 
-  Items
+  ## Items
     get '/items'
       response: status 200
       payload
