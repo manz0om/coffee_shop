@@ -1,7 +1,8 @@
 # README
+# UI WireFrame
+  https://github.com/manz0om/coffee_shop/blob/main/public/wire_frame.png
 
 # API's
-
   ## Menu
     get '/menu'
       response : status 200,
@@ -236,7 +237,7 @@
         ],
         total_amount: 
       }
-      
+
   ## Payment
     post '/payment/:order_id/update'
       request:
