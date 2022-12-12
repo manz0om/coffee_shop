@@ -3,11 +3,11 @@ class ItemCategoryController < ApplicationController
   def show
     response = ItemCategory.all
     response = response.map{|i| i.attributes}
-    render json: response.to_json, status: 200
+    render json: { data: response.to_json }.to_json, status: 200
   end
 
   def add
-    ItemCategoriesCrud.new(params.deep_symbolize_keys).create
+    ItemCategoriesCrud.new(params.deep_symbolize_keys).add
     render json: {}, status: 201
   end
 

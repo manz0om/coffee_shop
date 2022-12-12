@@ -1,24 +1,369 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+API's
 
-Things you may want to cover:
+  Menu
+    get '/menu'
+      response : status 200,
+      payload
+      {
+        data: [
+          {
+            caftegory_id: ,
+            category_name: ,
+            items: [
+              {
+                item_id: ,
+                item_name: ,
+                item_price: ,
+                item_tax: 
+              },
+              {
+                item_id: ,
+                item_name: ,
+                item_price: ,
+                item_tax: 
+              }
+              ...
+            ] 
+          }
+        ]
+      }
 
-* Ruby version
+  Offers
+    get '/offers'
+      response: status 200,
+      payload
+      {
+        data:[
+          {
+            offer_id: ,
+            offer_name: ,
+            offer_price: ,
+            items: [
+              {
+                item_id: ,
+                item_name: ,
+                item_price: ,
+                item_quantity: ,
+                item_discount: 
+              }
+            ]
+          },
+          {
+            offer_id: ,
+            offer_name: ,
+            offer_price: ,
+            items: [
+              {
+                item_id: ,
+                item_name: ,
+                item_price: ,
+                item_quantity: ,
+                item_discount: 
+              },
+              {
+                item_id: ,
+                item_name: ,
+                item_price: ,
+                item_quantity: ,
+                item_discount: 
+              }
+            ]
+          },
+          ...
+        ]
+      }
 
-* System dependencies
+    post '/offers/create'
+      request :
+      payload
+      {
+        data: [
+          {
+            offer_name: ,
+            first_item_id: ,
+            first_item_discount: ,
+            first_item_quantity: ,
+            second_item_id: ,
+            second_item_discount: ,
+            second_item_quantity:
+          },
+          ...
+        ]
+      }
+      response : status 201
 
-* Configuration
+    put '/offers/update'
+      request :
+      payload
+      {
+        data: {
+          offer_id: ,
+          attributes: [
+            {
+              name: ,
+              value:
+            },
+            {
+              name: ,
+              value:
+            }
+            ...
+          ]
+        }
+      }
+      response : status 204
 
-* Database creation
+    delete '/offers/remove'
+      request :
+      payload
+      {
+        data: {
+          order_id: 
+        }
+      }
+      response : status 204
 
-* Database initialization
+  Orders   
+    post '/order/create'
+      request:
+      payload
+      {
+        total: ,
+        phone_number: ,
+        table_number: ,
+        items: [
+          {
+            item_id: ,
+            item_name: ,
+            item_price: ,
+            item_quantity: ,
+            item_discount: ,
+            item_tax: 
+          },
+          {
+            item_id: ,
+            item_name: ,
+            item_price: ,
+            item_quantity: ,
+            item_discount: ,
+            item_tax: 
+          },
+          ...
+        ]
+      }
+      response: status 201
+      payload
+      {
+        order_id:,
+        amount: ,
+        status: ,
+        eta: ,
+        payment_link:
+      }
+      
+    put '/order/update_status'
+      request:
+      payload
+      {
+        order_id:
+      }
+      response: status 204
+      payload
+      {
+        order_id: ,
+        order_status: ,
+        order_payment_status: ,
+        eta: 
+      }
+    
+    get '/order/:order_id/status'
+      request:
+      payload
+      {
+        order_id: 
+      }
+      response: status 200
+      payload
+      {
+        order_id: ,
+        order_status: ,
+        order_payment_status: ,
+        eta:
+      }
 
-* How to run the test suite
+    post '/order/notify'
+      request:
+      {
+        order_id: 
+      }
+      response: status 204
+  
+  Cart
+    post '/cart/update'
 
-* Services (job queues, cache servers, search engines, etc.)
+  Payment
+    post '/payment/:order_id/update'
 
-* Deployment instructions
+  Item Categories
+    get '/item_categories'
+      response: status 200
+      payload
+      {
+        data: [
+          {
+            id:
+            name:
+            created_at:
+            updated_at:
+          },
+          {
+            id:
+            name:
+            created_at:
+            updated_at:
+          },
+          ...
+        ]
+      }
 
-* ...
+    post '/item_categories/add'
+      request:
+      payload
+      {
+        data: [
+          {
+            name: 
+          },
+          {
+            name: 
+          },
+          ...
+        ]
+      }
+      response: status 201
+
+    put '/item_categories/update'
+      request:
+      payload
+      {
+        data: [
+          {
+            item_category_id: ,
+            attributes:[
+              {
+                name: ,
+                value:
+              },
+              {
+                name: ,
+                value:
+              },
+              ...
+            ]
+          },
+          ...
+        ]
+      }
+      response: status 204
+
+    delete '/item_categories/remove'
+      request:
+      payload
+      {
+         data: [
+          {
+            item_category_id: 
+          },
+          ...
+      }
+      response: status 204
+
+  Items
+    get '/items'
+      response: status 200
+      payload
+      {
+        data: [
+          {
+            id:
+            name:
+            price:
+            tax_rate:
+            availability:
+            item_category_id:
+            created_at:
+            updated_at:
+          },
+          {
+            id:
+            name:
+            price:
+            tax_rate:
+            availability:
+            item_category_id:
+            created_at:
+            updated_at:
+          },
+          ...
+        ]
+      }
+
+    post '/items/add'
+      request:
+      payload
+      {
+        data: [
+          {
+            name: ,
+            price: ,
+            tax_rate: ,
+            item_category_id: 
+          },
+          {
+            name: ,
+            price: ,
+            tax_rate: ,
+            item_category_id: 
+          },
+          ...
+        ]
+      }
+      response: status 201
+
+    put '/items/update'
+      request:
+      payload
+      {
+        data: [
+          {
+            item_id: ,
+            attributes:[
+              {
+                name: ,
+                value:
+              },
+              {
+                name: ,
+                value:
+              },
+              ...
+            ]
+          },
+          ...
+        ]
+      }
+      response: status 204
+
+    delete '/items/remove'
+      request:
+      payload
+      {
+         data: [
+          {
+            item_id: 
+          },
+          ...
+      }
+      response: status 204

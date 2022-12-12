@@ -37,7 +37,7 @@ class OrderOperations
     result = {
       order_id: order.id,
       order_status: order.status,
-      order_payment_status: order.payments.status
+      order_payment_status: order.payments.status,
       eta: calculate_eta(order)
     }
   end

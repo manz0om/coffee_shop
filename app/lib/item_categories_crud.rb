@@ -5,7 +5,7 @@ class ItemCategoriesCrud
     @data = params[:data]
   end
 
-  def create
+  def add
     input = []
     data.each do |entry|
       row = ItemCategory.new(
